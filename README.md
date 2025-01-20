@@ -23,13 +23,13 @@ from scipy.sparse import diags
 from scipy.sparse.linalg import spsolve
 ```
 ***Define the domain and grid***
-```bash
+```python
 Lx, Ly = 1.0, 1.0  # Domain size
 Nx, Ny = 50, 50  # Number of grid points
 hx, hy = Lx / (Nx - 1), Ly / (Ny - 1)  # Grid spacing
 ```
 ***Generate grid***
-```bash
+```python
 x = np.linspace(0, Lx, Nx)
 y = np.linspace(0, Ly, Ny)
 X, Y = np.meshgrid(x, y)
@@ -55,7 +55,8 @@ offsets = [0, 1, -1, Nx - 2, -(Nx - 2)]
 A = diags(diagonals, offsets, format='csr') / hx**2
 ```
 ***Apply boundary conditions (homogeneous Dirichlet)***
-***Add adjustments to the right-hand side for boundary values if needed***
+
+Add adjustments to the right-hand side for boundary values if needed
 
 ***Solve the system*** 
 ```python
