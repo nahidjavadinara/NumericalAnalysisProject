@@ -1,4 +1,4 @@
-# NumericalAnalysisProject
+# Numerical Analysis Project
 ## Resolution of a 2D Poisson problem 
 ### Introduction
 
