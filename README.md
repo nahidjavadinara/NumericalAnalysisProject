@@ -38,7 +38,7 @@ $$
 -\left(\frac{u_{i-1,j} - 2u_{i,j} + u_{i+1,j}}{\Delta x^2} + \frac{u_{i,j-1} - 2u_{i,j} + u_{i,j+1}}{\Delta y^2}\right) = f(x_i, y_j).
 $$
 
-For a uniform grid (\(\Delta x = \Delta y = h\)):
+For a uniform grid $$(\(\Delta x = \Delta y = h\))$$:
 
 $$
 -\frac{1}{h^2} \left(u_{i-1,j} + u_{i+1,j} + u_{i,j-1} + u_{i,j+1} - 4u_{i,j}\right) = f(x_i, y_j).
