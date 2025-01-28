@@ -108,7 +108,7 @@ $$
 u_{\text{ex}}(x, y) = \sin^2(\pi x) \sin^2(\pi y)
 $$
 
-### Finding the Right-Hand Side \(f(x, y)\)
+### Finding the Right-Hand Side $$\(f(x, y)\)$$
 
 Taking the Laplacian of $$\(u_{\text{ex}}(x, y)\)$$:
 
@@ -118,22 +118,22 @@ $$
 
 Compute the partial derivatives:
 
-1. First derivative with respect to \(x\):
+1. First derivative concerning $$\(x\)$$:
 $$
-   \frac{\partial u_{\text{ex}}}{\partial x} = 2\sin(\pi x)\cos(\pi x)\sin^2(\pi y).
-$$
-
-2. Second derivative with respect to \(x\):
-$$
-   \frac{\partial^2 u_{\text{ex}}}{\partial x^2} = 2\pi^2\cos(2\pi x)\sin^2(\pi y).
+\frac{\partial u_{\text{ex}}}{\partial x} = 2\sin(\pi x)\cos(\pi x)\sin^2(\pi y).
 $$
 
-3. Similarly, for \(y\):
+3. Second derivative with respect to $$\(x\)$$:
 $$
-   \frac{\partial^2 u_{\text{ex}}}{\partial y^2} = 2\pi^2\cos(2\pi y)\sin^2(\pi x).
+\frac{\partial^2 u_{\text{ex}}}{\partial x^2} = 2\pi^2\cos(2\pi x)\sin^2(\pi y).
 $$
 
-Substituting into \(\Delta u_{\text{ex}}\) gives:
+4. Similarly, for $$\(y\)$$:
+$$
+\frac{\partial^2 u_{\text{ex}}}{\partial y^2} = 2\pi^2\cos(2\pi y)\sin^2(\pi x).
+$$
+
+Substituting into $$\(\Delta u_{\text{ex}}\)$$ gives:
 
 $$
 f(x, y) = -\Delta u_{\text{ex}} = -2\pi^2\left(\cos(2\pi x)\sin^2(\pi y) + \cos(2\pi y)\sin^2(\pi x)\right).
@@ -156,6 +156,7 @@ The solution $$\(u_{\text{ex}}(x, y)\)$$ satisfies the homogeneous Dirichlet bou
 $$
 u(x, 0) = u(x, 1) = u(0, y) = u(1, y) = 0.
 $$
+<\b>
 ***Apply boundary conditions (homogeneous Dirichlet)***
 ```python
 u_boundary = np.zeros_like(x)
