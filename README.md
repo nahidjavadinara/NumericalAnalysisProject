@@ -716,8 +716,7 @@ $$
 Applying the fourth-order central difference in both $x$ and $y$ directions:
 
 $$
-\Delta_h u_{i,j} = \frac{-u_{i-2,j} + 16u_{i-1,j} - 30u_{i,j} + 16u_{i+1,j} - u_{i+2,j}}{12h_x^2}
-+ \frac{-u_{i,j-2} + 16u_{i,j-1} - 30u_{i,j} + 16u_{i,j+1} - u_{i,j+2}}{12h_y^2}
+\Delta_h u_{i,j} = \frac{-u_{i-2,j} + 16u_{i-1,j} - 30u_{i,j} + 16u_{i+1,j} - u_{i+2,j}}{12h_x^2} + \frac{-u_{i,j-2} + 16u_{i,j-1} - 30u_{i,j} + 16u_{i,j+1} - u_{i,j+2}}{12h_y^2}
 $$
 
 ---
@@ -726,8 +725,7 @@ $$
 Assuming $h_x = h_y = h$, the discrete Laplacian simplifies to:
 
 $$
-\Delta_h u_{i,j} = \frac{-u_{i-2,j} + 16u_{i-1,j} - 30u_{i,j} + 16u_{i+1,j} - u_{i+2,j}}{12h^2}
-+ \frac{-u_{i,j-2} + 16u_{i,j-1} - 30u_{i,j} + 16u_{i,j+1} - u_{i,j+2}}{12h^2}
+\Delta_h u_{i,j} = \frac{-u_{i-2,j} + 16u_{i-1,j} - 30u_{i,j} + 16u_{i+1,j} - u_{i+2,j}}{12h^2} + \frac{-u_{i,j-2} + 16u_{i,j-1} - 30u_{i,j} + 16u_{i,j+1} - u_{i,j+2}}{12h^2}
 $$
 
 ---
@@ -735,8 +733,7 @@ $$
 ### **Final Discrete Laplacian:**
 
 $$
-\Delta_h u_{i,j} = \frac{-u_{i-2,j} + 16u_{i-1,j} - 30u_{i,j} + 16u_{i+1,j} - u_{i+2,j}}{12h^2}
-+ \frac{-u_{i,j-2} + 16u_{i,j-1} - 30u_{i,j} + 16u_{i,j+1} - u_{i,j+2}}{12h^2}
+\Delta_h u_{i,j} = \frac{-u_{i-2,j} + 16u_{i-1,j} - 30u_{i,j} + 16u_{i+1,j} - u_{i+2,j}}{12h^2} + \frac{-u_{i,j-2} + 16u_{i,j-1} - 30u_{i,j} + 16u_{i,j+1} - u_{i,j+2}}{12h^2}
 $$
 
 ### 3.1.3 Implementing the Fourth-Order Finite Difference Scheme
