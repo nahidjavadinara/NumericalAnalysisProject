@@ -377,22 +377,22 @@ Understanding the eigenvalues of the discrete Laplacian matrix $A$ is crucial fo
 #### 1. Eigenvalues of Matrix $T$ in $1D$:
 - For a tridiagonal matrix $T$ representing the 1D Laplacian with Dirichlet boundary conditions:
 
-  $$
-  T =
-  \begin{bmatrix}
-  4 & -1 & 0 & \cdots & 0 \\
-  -1 & 4 & -1 & \ddots & 0 \\
-  0 & -1 & 4 & \ddots & \vdots \\
-  \vdots & \ddots & \ddots & \ddots & -1 \\
-  0 & \cdots & 0 & -1 & 4
-  \end{bmatrix}
-  $$
+$$
+T =
+\begin{bmatrix}
+4 & -1 & 0 & \cdots & 0 \\
+-1 & 4 & -1 & \ddots & 0 \\
+0 & -1 & 4 & \ddots & \vdots \\
+\vdots & \ddots & \ddots & \ddots & -1 \\
+0 & \cdots & 0 & -1 & 4
+\end{bmatrix}
+$$
 
 - **Eigenvalues**:
 
-  $$
-  \lambda_i = 2 - 2 \cos \left(\frac{\pi i}{N + 1}\right), \quad i = 1, 2, \dots, N
-  $$
+$$
+\lambda_i = 2 - 2 \cos \left(\frac{\pi i}{N + 1}\right), \quad i = 1, 2, \dots, N
+$$
 
 - **Derivation**:
   The eigenvalues are derived based on the structure of $T$ by utilizing recurrence relations and properties of Chebyshev polynomials.
@@ -404,10 +404,10 @@ Understanding the eigenvalues of the discrete Laplacian matrix $A$ is crucial fo
 
 - **Eigenvalues of $A$**:
 
-  $$
-  \lambda_{i,j} = \lambda_i + \lambda_j = 4 - 2 \cos \left(\frac{\pi i}{N_x + 1}\right) - 2 \cos \left(\frac{\pi j}{N_y + 1}\right),
-  \quad i = 1, 2, \dots, N_x; \quad j = 1, 2, \dots, N_y
-  $$
+$$
+\lambda_{i,j} = \lambda_i + \lambda_j = 4 - 2 \cos \left(\frac{\pi i}{N_x + 1}\right) - 2 \cos \left(\frac{\pi j}{N_y + 1}\right),
+\quad i = 1, 2, \dots, N_x; \quad j = 1, 2, \dots, N_y
+$$
 
 - **Implications**:
   The eigenvalues of $A$ influence the convergence rate of iterative methods.  
@@ -510,11 +510,11 @@ For iterative methods like **Jacobi** and **Gauss-Seidel**, convergence is influ
    - **Strict Diagonal Dominance:**
      - A matrix $A$ is strictly diagonally dominant if for each row $i$:
 
-       $$
-       |A_{ii}| > \sum_{j \neq i} |A_{ij}|
-       $$
+$$
+|A_{ii}| > \sum_{j \neq i} |A_{ij}|
+$$
 
-     - **Implication:** Strict diagonal dominance guarantees convergence of both Jacobi and Gauss-Seidel methods.
+   - **Implication:** Strict diagonal dominance guarantees convergence of both Jacobi and Gauss-Seidel methods.
    
    - **Symmetry and Positive Definiteness:**
      - **Symmetric Positive Definite (SPD)** matrices also ensure convergence.
@@ -586,9 +586,9 @@ The **Successive Over-Relaxation (SOR)** method enhances the **Gauss-Seidel** ap
 
 - **Update Formula:**
 
-  $$
-  u_i^{(k+1)} = (1 - \omega) u_i^{(k)} + \frac{\omega}{A_{ii}} \left( b_i - \sum_{j<i} A_{ij} u_j^{(k+1)} - \sum_{j>i} A_{ij} u_j^{(k)} \right)
-  $$
+$$
+u_i^{(k+1)} = (1 - \omega) u_i^{(k)} + \frac{\omega}{A_{ii}} \left( b_i - \sum_{j<i} A_{ij} u_j^{(k+1)} - \sum_{j>i} A_{ij} u_j^{(k)} \right)
+$$
 
 - **Relaxation Parameter $\omega$:**
   - **Range:** $0 < \omega < 2$ ensures convergence.
