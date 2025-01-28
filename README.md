@@ -185,8 +185,11 @@ b = new_f[1:-1, 1:-1].flatten()
 Using a grid with $$\(N \times N\)$$ points, solve the linear system (by putting the previous steps in a function) for the numerical solution $$\(u_{\text{num}}\)$$ and compute the relative error in the maximum norm:
 
 $$
-\text{Error} = \|u_{\text{num}} - u_{\text{ex}}\|_\infty.
+\text{Error} = \max_{i,j} \left| \frac{u_{\text{num}}(x_i, y_j) - u_{\text{ex}}(x_i, y_j)}{u_{\text{ex}}(x_i, y_j) + \epsilon} \right|
 $$
+
+where $$\( \epsilon = 10^{-12} \)$$ is a small constant to avoid division by zero.
+
 
 #### Convergence Plot
 
