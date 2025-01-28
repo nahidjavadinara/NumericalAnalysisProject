@@ -53,7 +53,8 @@ from scipy.sparse.linalg import spsolve
 ***Define the domain and grid***
 ```python
 Lx, Ly = 1.0, 1.0  # Domain size
-Nx, Ny = 50, 50  # Number of grid points
+grid_number = 10    # From [10, 20, 40, 80]
+Nx, Ny = grid_number, grid_number  
 hx, hy = Lx / (Nx - 1), Ly / (Ny - 1)  # Grid spacing
 ```
 ***Generate grid***
@@ -61,14 +62,6 @@ hx, hy = Lx / (Nx - 1), Ly / (Ny - 1)  # Grid spacing
 x = np.linspace(0, Lx, Nx)
 y = np.linspace(0, Ly, Ny)
 X, Y = np.meshgrid(x, y)
-```
-***Define the source term f(x, y)***
-```python
-f = np.sin(np.pi * X) * np.sin(np.pi * Y)
-```
-***Flatten the source term into a 1D vector***
-```python
-f_flat = f[1:-1, 1:-1].flatten()
 ```
 ***Construct the sparse matrix A*** 
 ```python
@@ -82,9 +75,6 @@ diagonals = [main_diag, off_diag, off_diag, off_diag2, off_diag2]
 offsets = [0, 1, -1, Nx - 2, -(Nx - 2)]
 A = diags(diagonals, offsets, format='csr') / hx**2
 ```
-***Apply boundary conditions (homogeneous Dirichlet)***
-
-Add adjustments to the right-hand side for boundary values if needed
 
 ***Solve the system*** 
 ```python
@@ -120,7 +110,7 @@ $$
 
 ### Finding the Right-Hand Side \(f(x, y)\)
 
-Taking the Laplacian of \(u_{\text{ex}}(x, y)\):
+Taking the Laplacian of $$\(u_{\text{ex}}(x, y)\)$$:
 
 $$
 \Delta u_{\text{ex}} = \frac{\partial^2 u_{\text{ex}}}{\partial x^2} + \frac{\partial^2 u_{\text{ex}}}{\partial y^2}.
@@ -129,39 +119,65 @@ $$
 Compute the partial derivatives:
 
 1. First derivative with respect to \(x\):
-   $$
+$$
    \frac{\partial u_{\text{ex}}}{\partial x} = 2\sin(\pi x)\cos(\pi x)\sin^2(\pi y).
-   $$
+$$
 
 2. Second derivative with respect to \(x\):
-   $$
+$$
    \frac{\partial^2 u_{\text{ex}}}{\partial x^2} = 2\pi^2\cos(2\pi x)\sin^2(\pi y).
-   $$
+$$
 
 3. Similarly, for \(y\):
-   $$
+$$
    \frac{\partial^2 u_{\text{ex}}}{\partial y^2} = 2\pi^2\cos(2\pi y)\sin^2(\pi x).
-   $$
+$$
 
 Substituting into \(\Delta u_{\text{ex}}\) gives:
 
 $$
 f(x, y) = -\Delta u_{\text{ex}} = -2\pi^2\left(\cos(2\pi x)\sin^2(\pi y) + \cos(2\pi y)\sin^2(\pi x)\right).
 $$
+***Define the source term f(x, y)***
+```python
+f = 2 * np.pi**2 * ((np.sin(np.pi * Y))**2 * np.cos(2 * np.pi * X) + (np.sin(np.pi * X))**2 * np.cos(2 * np.pi * Y))
+```
+
+***Flatten the source term into a 1D vector***
+```python
+b = new_f[1:-1, 1:-1].flatten()
+```
+
 
 ### Consistency with Boundary Conditions
 
-The solution \(u_{\text{ex}}(x, y)\) satisfies the homogeneous Dirichlet boundary conditions:
+The solution $$\(u_{\text{ex}}(x, y)\)$$ satisfies the homogeneous Dirichlet boundary conditions:
 
 $$
 u(x, 0) = u(x, 1) = u(0, y) = u(1, y) = 0.
 $$
+***Apply boundary conditions (homogeneous Dirichlet)***
+```python
+u_boundary = np.zeros_like(x)
+    u_boundary[0, :] = 0      # Bottom boundary
+    u_boundary[-1, :] = 0    # Top boundary
+    u_boundary[:, 0] = 0      # Left boundary
+    u_boundary[:, -1] = 0    # Right boundary
+```
+***Extend the procedure for a non-zero boundary condition***
+```python
+b_matrix = np.zeros_like(X)  # Initialize the matrix for boundary contributions
+b_matrix[1:-1, 1:-1] = f[1:-1, 1:-1]  # Add the source term for interior points
+u_boundry = boundary_condition(X,Y)   #for non-zero boundary condition
+new_f = b_matrix + u_boundry      # Au = b + f
+b = new_f[1:-1, 1:-1].flatten()
+```
 
 ### Numerical Validation
 
 #### Relative Error and Convergence
 
-Using a grid with \(N \times N\) points, solve the linear system for the numerical solution \(u_{\text{num}}\) and compute the relative error in the maximum norm:
+Using a grid with $$\(N \times N\)$$ points, solve the linear system (by putting the previous steps in a function) for the numerical solution $$\(u_{\text{num}}\)$$ and compute the relative error in the maximum norm:
 
 $$
 \text{Error} = \|u_{\text{num}} - u_{\text{ex}}\|_\infty.
@@ -169,15 +185,20 @@ $$
 
 #### Convergence Plot
 
-Generate a log-log plot of the error against the step size \(h = \frac{1}{N}\). The expected convergence rate for the second-order finite difference scheme is \(O(h^2)\).
+Generate a log-log plot of the error against the step size $$\(h = \frac{1}{N}\)$$. The expected convergence rate for the second-order finite difference scheme is $$\(O(h^2)\)$$.
 
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
 
 # Define step sizes and errors
-step_sizes = [1/N for N in [10, 20, 40, 80]]
-errors = [0.01, 0.0025, 0.000625, 0.00015625]  # Replace with computed errors
+grids = [10, 20, 40, 80]
+errors = []
+step_sizes = []
+for grid in grids:
+    X, Y , u = solver(grid)
+    u_exact = exact_solution(X,Y)
+    error = np.max(np.abs((u - u_exact) / (u_exact + 1e-12)))  # Maximum norm error
+    errors.append(error)
+    step_sizes.append(1/grid)
 
 # Plot
 plt.figure()
@@ -187,5 +208,6 @@ plt.xlabel('Step size (h)')
 plt.ylabel('Error (log scale)')
 plt.legend()
 plt.grid(True, which="both", linestyle="--")
+plt.show()
 plt.show()
 
