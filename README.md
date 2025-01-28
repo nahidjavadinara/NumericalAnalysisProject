@@ -160,8 +160,8 @@ The solution $$\(u_{\text{ex}}(x, y)\)$$ satisfies the homogeneous Dirichlet bou
 $$
 u(x, 0) = u(x, 1) = u(0, y) = u(1, y) = 0.
 $$
-<\b>
-***Apply boundary conditions (homogeneous Dirichlet)***
+
+####Apply boundary conditions (homogeneous Dirichlet)
 ```python
 u_boundary = np.zeros_like(x)
     u_boundary[0, :] = 0      # Bottom boundary
@@ -169,7 +169,7 @@ u_boundary = np.zeros_like(x)
     u_boundary[:, 0] = 0      # Left boundary
     u_boundary[:, -1] = 0    # Right boundary
 ```
-***Extend the procedure for a non-zero boundary condition***
+####Extend the procedure for a non-zero boundary condition
 ```python
 b_matrix = np.zeros_like(X)  # Initialize the matrix for boundary contributions
 b_matrix[1:-1, 1:-1] = f[1:-1, 1:-1]  # Add the source term for interior points
