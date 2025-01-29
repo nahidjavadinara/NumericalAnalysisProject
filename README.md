@@ -1045,6 +1045,9 @@ def plot_convergence_fourth_order(hs, errors_sparse, errors_dense):
 ### Useful Sources 
 
 [https://scicomp.stackexchange.com/questions/42616/solving-2d-poisson-equation-with-dirichlet-boundary-conditions-in-python]
+
 [https://stackoverflow.com/questions/53086788/how-to-solve-poisson-2d-equation-with-sympy ]
+
 [https://hplgit.github.io/fenics-tutorial/pub/sphinx1/._ftut1003.html]
+
 [https://medium.com/@ariel.yaniv/finite-element-method-explained-how-to-solve-the-2d-poisson-equation-part-ii-7179a4871b98 ]
