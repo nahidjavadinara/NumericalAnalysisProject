@@ -1,5 +1,55 @@
 # Numerical Analysis Project
 ## Resolution of a 2D Poisson problem 
+
+# Table of Contents
+
+1. [Introduction](#introduction)
+2. [Objectives](#objectives)
+3. [Solving the Poisson Equation Using Finite Difference Method](#solving-the-poisson-equation-using-finite-difference-method)
+   - [Finite Difference Discretization](#finite-difference-discretization)
+   - [Designing the Solver](#designing-the-solver)
+     - [Generating a Rectangular Grid](#generating-a-rectangular-grid)
+     - [Constructing the Sparse Matrix](#constructing-the-sparse-matrix)
+     - [Solving the System](#solving-the-system)
+   - [Validation of the Implementation](#validation-of-the-implementation)
+     - [Finding the Right-Hand Side \(f(x, y)\)](#finding-the-right-hand-side-fxy)
+     - [Consistency with Boundary Conditions](#consistency-with-boundary-conditions)
+     - [Numerical Validation](#numerical-validation)
+       - [Relative Error and Convergence](#relative-error-and-convergence)
+       - [Convergence Plot](#convergence-plot)
+
+4. [Solving the Linear System](#solving-the-linear-system)
+   - [Direct Methods](#direct-methods)
+     - [Sparse Matrix Representation](#sparse-matrix-representation)
+     - [Computational Time Comparison](#computational-time-comparison)
+   - [Iterative Methods](#iterative-methods)
+     - [Eigenvalues of the Discrete Laplacian in 2D](#eigenvalues-of-the-discrete-laplacian-in-2d)
+     - [Implementation of Iterative Methods](#implementation-of-iterative-methods)
+       - [Jacobi Method](#jacobi-method)
+       - [Gauss-Seidel Method](#gauss-seidel-method)
+     - [Convergence Expectations](#convergence-expectations)
+     - [Measuring the Cost of Iterative Solvers](#measuring-the-cost-of-iterative-solvers)
+     - [Successive Over-Relaxation (SOR) Method](#successive-over-relaxation-sor-method)
+       - [Finding the Optimal Relaxation Parameter (\(\omega\))](#finding-the-optimal-relaxation-parameter-omega)
+
+5. [Extensions to the Solver](#extensions-to-the-solver)
+   - [Fourth-Order Finite Difference Scheme](#fourth-order-finite-difference-scheme)
+     - [Motivation for Higher-Order Schemes](#motivation-for-higher-order-schemes)
+     - [Derivation of the Fourth-Order Finite Difference Approximation](#derivation-of-the-fourth-order-finite-difference-approximation)
+     - [Implementing the Fourth-Order Finite Difference Scheme](#implementing-the-fourth-order-finite-difference-scheme)
+       - [Grid Generation](#grid-generation-for-higher-order-schemes)
+       - [Assembling the Sparse Matrix](#assembling-the-fourth-order-sparse-matrix)
+       - [Assembling the RHS Vector](#fourth-order-rhs-vector-assembly)
+       - [Solving the Fourth-Order Linear System](#solving-the-fourth-order-linear-system)
+       - [Dense Direct Solver (Comparison)](#fourth-order-dense-direct-solver-for-comparison)
+   - [Convergence Study for the Fourth-Order Scheme](#convergence-study-for-the-fourth-order-scheme)
+     - [Implementation of Convergence Study](#implementation-of-convergence-study)
+     - [Plotting Convergence](#plotting-convergence-fourth-order)
+
+6. [Useful Sources](#useful-sources)
+---
+
+
 ### Introduction
 
 This section outlines the development and validation of a second-order finite difference solver for the 2D Poisson equation. The solver discretizes the domain, formulates the discrete Laplacian, assembles the corresponding linear system, and validates the implementation against an exact solution.
@@ -992,3 +1042,9 @@ def plot_convergence_fourth_order(hs, errors_sparse, errors_dense):
     plt.grid(True, which="both", ls="--")
     plt.show()
 ```
+### Useful Sources 
+
+[https://scicomp.stackexchange.com/questions/42616/solving-2d-poisson-equation-with-dirichlet-boundary-conditions-in-python]
+[https://stackoverflow.com/questions/53086788/how-to-solve-poisson-2d-equation-with-sympy ]
+[https://hplgit.github.io/fenics-tutorial/pub/sphinx1/._ftut1003.html]
+[https://medium.com/@ariel.yaniv/finite-element-method-explained-how-to-solve-the-2d-poisson-equation-part-ii-7179a4871b98 ]
